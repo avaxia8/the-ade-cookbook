@@ -26,7 +26,7 @@ Extract structured data with [AI-powered precision](https://landing.ai/blog/supe
 </div>
 
 ## Workflow Overview
-![The ADE Decision Tree](/images/ade_decision_tree.png){ width=400px }
+![The ADE Decision Tree](/images/ade_decision_tree.png)
 
 ## Document Parsing Quick Start
 All workflows start with document parsing.
