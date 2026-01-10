@@ -4,26 +4,27 @@ Extract structured data with [AI-powered precision](https://landing.ai/blog/supe
 
 ## Get Started
 
-<div class="nav-cards">
-  <div class="card">
-    <h3>🎮 Playground</h3>
-    <p>Try ADE instantly in your browser.</p>
-    <a href="https://va.landing.ai" class="button">Open Playground →</a>
-  </div>
-  
-  <div class="card">
-    <h3>🐍 Python Library</h3>
-    <p>Install and start coding.</p>
-    <code>pip install landingai-ade</code>
-    <a href="https://github.com/landing-ai/ade-python" class="button">Python Library →</a>
-  </div>
-  
-  <div class="card">
-    <h3>🔌 REST API</h3>
-    <p>Direct API access for any language.</p>
-    <a href="https://docs.landing.ai/api-reference/tools/ade-parse" class="button">API Docs →</a>
-  </div>
-</div>
+<table>
+  <tr>
+    <td width="33%" align="center">
+      <h3>🎮 Playground</h3>
+      <p>Try ADE instantly in your browser.</p>
+      <a href="https://va.landing.ai"><strong>Open Playground →</strong></a>
+    </td>
+    <td width="33%" align="center">
+      <h3>🐍 Python Library</h3>
+      <p>Install and start coding.</p>
+      <code>pip install landingai-ade</code><br><br>
+      <a href="https://github.com/landing-ai/ade-python"><strong>Python Library →</strong></a>
+    </td>
+    <td width="33%" align="center">
+      <h3>🔌 REST API</h3>
+      <p>Direct API access for any language.</p>
+      <br>
+      <a href="https://docs.landing.ai/api-reference/tools/ade-parse"><strong>API Docs →</strong></a>
+    </td>
+  </tr>
+</table>
 
 ## Workflow Overview
 ![The ADE Decision Tree](/images/ade_decision_tree.png)
