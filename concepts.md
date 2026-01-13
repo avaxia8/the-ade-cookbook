@@ -196,23 +196,6 @@ For every piece of data you want, you need to tell the AI three things:
 }
 ```
 
-
-## Error Handling
-
-```mermaid
-stateDiagram-v2
-    [*] --> Success
-    [*] --> AuthError: Invalid API Key
-    [*] --> ParseError: Document Issues
-    [*] --> ExtractError: Schema Issues
-    [*] --> RateLimit: Too Many Requests
-    
-    AuthError --> [*]: Fix credentials
-    ParseError --> [*]: Check document
-    ExtractError --> [*]: Fix schema
-    RateLimit --> [*]: Wait & retry
-```
-
 ## Next Steps
 
 - **[Examples](examples.md)** - See these concepts in code
