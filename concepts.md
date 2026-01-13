@@ -3,6 +3,8 @@
 ## Table of Contents
 - [Understanding Parse Output](#understanding-parse-output)
 - [Visual Grounding](#visual-grounding)
+- [Understanding Splits](#understanding-splits---document-organizer-magic)
+- [Understanding Extraction Output](#understanding-extraction-output---your-data-detectives-report-)
 - [Extraction Schemas Explained](#extraction-schemas-explained)
   - [Pydantic vs JSON Schema](#pydantic-vs-json-schema-the-easy-way)
   - [JSON Schema for Dummies](#json-schema-for-dummies)
@@ -106,6 +108,177 @@ print(f"Processed {response.metadata.page_count} pages in {response.metadata.dur
 │  └──────────────────┘       │
 └─────────────────────────────┘
 ```
+
+## Understanding Splits - Document Organizer Magic
+
+Think of **splits** as your personal filing assistant who can take a messy stack of mixed documents and automatically sort them into organized folders. 
+
+**The Magic:** You upload ONE file with bank statements and pay stubs all mixed together, and ADE automatically separates them by type and even identifies which pay stub is which!
+
+### Real-World Example: Mixed Financial Documents
+
+Imagine you scanned 3 pages:
+- Page 1: Bank statement for January
+- Page 2: Pay stub from January 15
+- Page 3: Pay stub from January 30
+
+### Visual: How Splits Work
+
+```
+Your Uploaded PDF:                 ADE Splits It Into:
+┌─────────────────┐                ┌──────────────────┐
+│ Page 1:         │                │ 📁 Bank Statement│
+│ Bank Statement  │   ─────►       │    - January     │
+│─────────────────│                └──────────────────┘
+│ Page 2:         │                ┌──────────────────┐
+│ Pay Stub Jan 15 │   ─────►       │ 📁 Pay Stub      │
+│─────────────────│                │    - Jan 15      │
+│ Page 3:         │                └──────────────────┘
+│ Pay Stub Jan 30 │   ─────►       ┌──────────────────┐
+└─────────────────┘                │ 📁 Pay Stub      │
+                                   │    - Jan 30      │
+                                   └──────────────────┘
+```
+
+Here's what ADE returns:
+
+```json
+{
+  "splits": [
+    {
+      "classification": "Bank Statement",     // What type of doc
+      "identifier": null,                      // No specific ID needed
+      "pages": [0],                           // Found on page 1 (0-indexed)
+      "markdowns": ["Bank Statement\nAccount Number: 1234567890..."]
+    },
+    {
+      "classification": "Pay Stub",           // Document type
+      "identifier": "2025-01-15",            // Specific date found!
+      "pages": [1],                          // Page 2
+      "markdowns": ["Pay Stub\nEmployee: John Smith\nPay Date: January 15..."]
+    },
+    {
+      "classification": "Pay Stub",          // Another pay stub
+      "identifier": "2025-01-30",           // Different date
+      "pages": [2],                         // Page 3
+      "markdowns": ["Pay Stub\nEmployee: John Smith\nPay Date: January 30..."]
+    }
+  ]
+}
+```
+
+## Understanding Extraction Output - Your Data Detective's Report 🔍
+
+Think of extraction as hiring a **data detective** who not only finds the information you asked for but also shows you exactly where they found it, like leaving breadcrumbs back to the evidence.
+
+### The Three-Part Detective Report
+
+When you extract data, you get THREE things back:
+
+```
+1. 🎯 extraction       = The treasure (clean data you wanted)
+2. 🔍 extraction_metadata = The evidence trail (where each piece came from)  
+3. 📋 metadata        = The receipt (processing details)
+```
+
+### Real Example: Extracting from a Pay Stub
+
+Here's what your data detective brings back:
+
+```json
+{
+  // PART 1: The Treasure - Clean, ready-to-use data
+  "extraction": {
+    "employee_name": "MICHAEL D BRYAN",
+    "employee_ssn": "555-50-1234",
+    "gross_pay": 6000.00
+  },
+  
+  // PART 2: The Evidence Trail - Shows their work!
+  "extraction_metadata": {
+    "employee_name": {
+      "value": "MICHAEL D BRYAN",
+      "references": ["72ba3cca-01e5-407b-9fc4-81f54f9f0c51"]  // Found in this chunk!
+    },
+    "employee_ssn": {
+      "value": "555-50-1234",
+      "references": ["a3f5d8c9-2b4e-4a1c-8f7e-9d6c5b4a3e2f"]  // Different chunk
+    },
+    "gross_pay": {
+      "value": "$6,000.00",
+      "references": ["5b8865b9-1a81-46df-bcf7-0bdbed9130dc"]  // Yet another chunk
+    }
+  },
+  
+  // PART 3: The Receipt - Processing details
+  "metadata": {
+    "duration_ms": 1523,              // Took 1.5 seconds
+    "credit_usage": 1.0,               // Cost 1 credit
+    "schema_violation_error": null    // No errors! 🎉
+  }
+}
+```
+
+### Visual: How References Connect Everything
+
+```
+Your Document                    Extraction Output
+┌──────────────────┐            ┌────────────────────┐
+│ Chunk 72ba3cca:  │  ────►     │ employee_name:     │
+│ "MICHAEL D BRYAN"│            │ "MICHAEL D BRYAN"  │
+├──────────────────┤            │ ↓ references:      │
+│ Chunk a3f5d8c9:  │  ────►     │ [72ba3cca...]     │
+│ "SSN: 555-50..." │            ├────────────────────┤
+├──────────────────┤            │ employee_ssn:      │
+│ Chunk 5b8865b9:  │  ────►     │ "555-50-1234"     │
+│ "Gross: $6,000"  │            │ ↓ references:      │
+└──────────────────┘            │ [a3f5d8c9...]     │
+                                └────────────────────┘
+```
+
+### Why This Is Awesome
+
+1. **Verification**: You can trace every extracted value back to its source
+2. **Debugging**: If something looks wrong, check the referenced chunk
+3. **Compliance**: Perfect audit trail for regulated industries
+4. **Confidence**: Multiple references mean the value appeared multiple times
+
+### Working with Extraction Output
+
+```python
+# Extract data
+result = client.extract(
+    schema={"properties": {"employee_name": {"type": "string"}}},
+    markdown=response.markdown
+)
+
+# Get the clean data
+name = result.extraction["employee_name"]  # "MICHAEL D BRYAN"
+
+# Check where it came from
+metadata = result.extraction_metadata["employee_name"]
+source_chunk_id = metadata["references"][0]  # "72ba3cca..."
+
+# Find the original chunk
+original_chunk = next(c for c in response.chunks if c.id == source_chunk_id)
+print(f"Found '{name}' in chunk type: {original_chunk.type}")
+
+# Check for errors
+if result.metadata["schema_violation_error"]:
+    print("Schema problem:", result.metadata["schema_violation_error"])
+```
+
+### Quick Reference
+
+| Component | What You Get | Use It For |
+|-----------|-------------|------------|
+| **extraction** | Clean, structured data | Your application logic |
+| **extraction_metadata** | Source references for each field | Verification & debugging |
+| **metadata** | Processing stats | Monitoring & billing |
+| **references** | Chunk IDs where data was found | Trace back to source |
+| **schema_violation_error** | Error messages if schema failed | Error handling |
+
+**Pro Tip:** Always check `schema_violation_error` first! If it's not null, something went wrong with your schema. The detective couldn't complete their mission! 🕵️
 
 ## Extraction Schemas Explained
 
