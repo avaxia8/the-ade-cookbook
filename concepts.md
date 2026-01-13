@@ -236,37 +236,7 @@ Your Document                    Extraction Output
                                 └────────────────────┘
 ```
 
-### Why This Is Awesome
 
-1. **Verification**: You can trace every extracted value back to its source
-2. **Debugging**: If something looks wrong, check the referenced chunk
-3. **Compliance**: Perfect audit trail for regulated industries
-4. **Confidence**: Multiple references mean the value appeared multiple times
-
-### Working with Extraction Output
-
-```python
-# Extract data
-result = client.extract(
-    schema={"properties": {"employee_name": {"type": "string"}}},
-    markdown=response.markdown
-)
-
-# Get the clean data
-name = result.extraction["employee_name"]  # "MICHAEL D BRYAN"
-
-# Check where it came from
-metadata = result.extraction_metadata["employee_name"]
-source_chunk_id = metadata["references"][0]  # "72ba3cca..."
-
-# Find the original chunk
-original_chunk = next(c for c in response.chunks if c.id == source_chunk_id)
-print(f"Found '{name}' in chunk type: {original_chunk.type}")
-
-# Check for errors
-if result.metadata["schema_violation_error"]:
-    print("Schema problem:", result.metadata["schema_violation_error"])
-```
 
 ### Quick Reference
 
