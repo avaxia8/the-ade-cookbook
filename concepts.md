@@ -7,9 +7,6 @@
 - [Extraction Schemas Explained](#extraction-schemas-explained)
   - [Pydantic vs JSON Schema](#pydantic-vs-json-schema-the-easy-way)
   - [JSON Schema for Dummies](#json-schema-for-dummies)
-- [Async Processing Flow](#async-processing-flow)
-- [Error Handling](#error-handling)
-
 
 ## Understanding Parse Output
 
