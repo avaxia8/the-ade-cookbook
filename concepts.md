@@ -2,7 +2,6 @@
 
 ## Table of Contents
 - [Understanding Parse Output](#understanding-parse-output)
-- [Chunk Types](#chunk-types)
 - [Visual Grounding](#visual-grounding)
 - [Extraction Schemas Explained](#extraction-schemas-explained)
   - [Pydantic vs JSON Schema](#pydantic-vs-json-schema-the-easy-way)
@@ -16,47 +15,80 @@ It transforms a chaotic pile of pixels into a structured system where every item
 
 ### **The Anatomy of a Parse Response**
 
-
 | Field | Description | Use Case | Example |
 | :--- | :--- | :--- | :--- |
-| **`markdown`** | The complete document text formatted as Markdown. | **Feed this to an LLM** (ChatGPT, Claude) to ask questions about the document. | `"# Invoice\nTotal: $500\n<a id='c1'></a>"` |
-| **`chunks`** | A list of individual elements (paragraphs, tables, charts). | **Iterate through data.** "Find all tables" or "Extract all logos." | `[{id: "c1", type: "table"}, {id: "c2", type: "text"}]` |
-| **`grounding`** | A map linking every chunk ID to exact coordinates (x, y). | **Highlight the source.** Draw a box on the PDF to show users where the answer came from. | `{'c1': {box: {top: 0.1, left: 0.5...}}}` |
-| **`splits`** | Organizes chunks by page number. | **Pagination.** "Show me only the text from Page 3." | `[{page: 1, chunks: ['c1', 'c2']}]` |
-| **`metadata`** | Job stats (pages processed, credits used, duration). | **Billing & Logging.** Track your usage and performance. | `{duration_ms=5979, credit_usage: 3.0, page_count=1}` |
+| **`markdown`** | Complete document text with chunk anchors | **Feed to LLMs** for Q&A about the document | `"# Invoice\n<a id='chunk_1'></a>Total: $500"` |
+| **`chunks`** | List of document elements with their own markdown, type, ID, and location | **Process specific content types** - "Find all tables" or "Extract logos" | `[{id: "chunk_1", type: "table", markdown: "...", grounding: {...}}]` |
+| **`splits`** | Pages or sections with their chunks organized | **Page-level processing** - "Get content from page 3" | `[{class: "page", identifier: "1", pages: [1], chunks: ["chunk_1"]}]` |
+| **`metadata`** | Processing information and usage stats | **Billing & monitoring** - Track credits and performance | `{filename: "invoice.pdf", credit_usage: 3.0, duration_ms: 5979}` |
+
+### Complete JSON Structure
+
+```json
+{
+  "markdown": "<string>",  // Full document with chunk anchors: <a id='chunk_id'></a>
+  "chunks": [
+    {
+      "markdown": "<string>",     // This chunk's content
+      "type": "<string>",          // text, table, figure, etc.
+      "id": "<string>",            // Unique ID matching anchors in markdown
+      "grounding": {
+        "box": {
+          "left": 123,             // Pixel coordinates (not normalized)
+          "top": 123,
+          "right": 456,
+          "bottom": 789
+        },
+        "page": 1                  // Page number (1-indexed)
+      }
+    }
+  ],
+  "splits": [
+    {
+      "class": "<string>",         // Usually "page"
+      "identifier": "<string>",    // Page or section ID
+      "pages": [1, 2],            // Which pages are included
+      "markdown": "<string>",      // Combined markdown for this split
+      "chunks": ["chunk_1", "chunk_2"]  // IDs of chunks in this split
+    }
+  ],
+  "metadata": {
+    "filename": "invoice.pdf",
+    "org_id": "<string>",
+    "page_count": 3,
+    "duration_ms": 5979,          // Processing time
+    "credit_usage": 3.0,           // Credits consumed
+    "version": "1.0.0"
+  }
+}
+```
 
 ### Quick Access Example
 
 ```python
-# 1. Get the object
-response = client.parse("invoice.pdf")  # <--- This returns a ParseResponse object
+# Parse the document
+response = client.parse("invoice.pdf")
 
-# 2. Access the data using dot notation
-print(response.markdown)        # Get the full content
-print(response.chunks[0].markdwon)  # Get the content of the first chunk
-print(response.metadata)        # See how many credits you used
+# Access the full markdown with chunk anchors
+print(response.markdown)  # "# Invoice\n<a id='chunk_1'></a>Total: $500..."
+
+# Work with individual chunks
+for chunk in response.chunks:
+    print(f"Type: {chunk.type}, ID: {chunk.id}")
+    print(f"Content: {chunk.markdown}")
+    print(f"Location: Page {chunk.grounding.page}, Box: {chunk.grounding.box}")
+
+# Process by page
+for split in response.splits:
+    if split.class == "page" and "1" in split.identifier:
+        print(f"Page 1 has {len(split.chunks)} chunks")
+        print(f"Page 1 content: {split.markdown}")
+
+# Check usage
+print(f"Used {response.metadata.credit_usage} credits")
+print(f"Processed {response.metadata.page_count} pages in {response.metadata.duration_ms}ms")
 ```
 
-
-
-## Chunk Types
-
-```mermaid
-mindmap
-  root((Chunks))
-    Text
-      Text
-      Marginalia
-    Tables
-      Table
-      tableCell
-    Visual
-      Figure
-      Logo
-      ScanCode
-    Attestation
-    Card
-```
 
 ## Visual Grounding
 
