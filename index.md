@@ -65,7 +65,7 @@ The parsing output can then be split, extracted or classified.
 5. **[Document Classification](recipes.md#4-document-classification)** - Auto-categorize documents
 5. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
 
-### [Concepts](concepts.md)
+### [Essential Concepts](concepts.md)
 - [Parse Output Guide](concepts.md#understanding-parse-output) - Understand the parse response
 - [Visual Grounding](concepts.md#visual-grounding) - Location tracking
 - [Extraction Schema](concepts.md#extraction-schemas-explained) - Schemas as shopping lists for AI
