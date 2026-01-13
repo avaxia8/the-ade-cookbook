@@ -1,4 +1,4 @@
-# Visual Concepts Guide
+# Essential Concepts Guide
 
 ## Table of Contents
 - [Understanding Parse Output](#understanding-parse-output)
