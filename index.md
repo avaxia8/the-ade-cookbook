@@ -78,12 +78,7 @@ After parsing, you can decide on the following workflows based on your needs:
 - [Document Classification](recipes.md#4-document-classification) - Auto-categorize documents
 - [Production Pipeline](recipes.md#8-production-pipeline) - Enterprise-ready setup
 
-### [Project Repos](https://github.com/landing-ai/ade-helper-scripts)
-
-#### Essential Workflows
-- **[Basic Parse & Extract](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/field_extraction/ade_parse_and_extract_with_python)** - Beginner-friendly parsing and extraction
-- **[Document Classification](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/field_extraction/classify_extract_visualize)** - Classify, extract, and visualize documents
-- **[Async Processing for Large Files](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/special_use_case/parse_jobs_api_for_large_files)** - Handle documents >10MB
+### [Projects](https://github.com/landing-ai/ade-helper-scripts)
 
 #### RAG & LLM Integration
 - **[RAG Document Parser](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/retrieval_augmented_generation/document_parser_for_rag_applications)** - Chunk documents for RAG
