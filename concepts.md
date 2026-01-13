@@ -1,9 +1,7 @@
 # Visual Concepts Guide
 
 ## Table of Contents
-- [Split vs Extract Decision Tree](#split-vs-extract-decision-tree)
-- [Parse Output Visualization](#parse-output-visualization)
-- [Understanding Parse Output - Beginner's Guide](#understanding-parse-output---beginners-guide)
+- [Understanding Parse Output](#understanding-parse-output)
 - [Chunk Types](#chunk-types)
 - [Visual Grounding](#visual-grounding)
 - [Schema Structure](#schema-structure)
@@ -13,95 +11,35 @@
 - [Save Options](#save-options)
 - [Error Handling](#error-handling)
 
-## Split vs Extract Decision Tree
 
-```mermaid
-graph TD
-    A[Start] --> B{Do you need to<br/>extract data?}
-    B -->|No| C[Use Split]
-    B -->|Yes| D{Is data in<br/>specific pages?}
-    
-    D -->|No| E[Use Extract Only]
-    D -->|Yes| F[Use Split + Extract]
-    
-    C --> G[Split by page/chunk]
-    E --> H[Extract from full doc]
-    F --> I[Split first, then<br/>extract per page]
-    
-    style C fill:#ffe6e6
-    style E fill:#e6ffe6
-    style F fill:#e6e6ff
-```
+## Understanding Parse Output
 
-## Parse Output Visualization
+ParseResponse is the master container returned when you run client.parse(). It transforms a chaotic pile of pixels into a structured system where every item is categorized (**chunks**), transcribed (**markdown**), and tracked to its exact original location (**grounding**).
 
-```mermaid
-graph LR
-    subgraph "Original Document"
-        DOC[📄 PDF/Image]
-    end
-    
-    subgraph "Parse Result"
-        MD[📝 Markdown Text]
-        CH1[📦 Text Chunk]
-        CH2[📊 Table Chunk]
-        CH3[🖼️ Figure Chunk]
-    end
-    
-    DOC --> MD
-    DOC --> CH1
-    DOC --> CH2
-    DOC --> CH3
-```
+### **The Anatomy of a Parse Response**
 
-## Understanding Parse Output - Beginner's Guide
 
-Think of parsing a document like organizing a messy desk: you sort papers into categories, transcribe handwritten notes, and track where everything came from.
-
-### The 5 Main Parts of Parse Output
-
-| Field | What It Is | Real-World Analogy | Example |
-|-------|------------|-------------------|---------|
-| **chunks** | Individual pieces of content | Like cutting a newspaper into articles | `[{type: "text", content: "Invoice #123"}, {type: "table", content: ...}]` |
-| **markdown** | Clean text version of entire document | Like retyping handwritten notes | `"# Invoice\nInvoice Number: 123\nTotal: $500"` |
-| **metadata** | Document information | Like a file's properties (size, date, etc.) | `{pages: 3, duration: 2.5s, credits_used: 1}` |
-| **splits** | Organized by page/section | Like dividers in a binder | `[{page: 1, chunks: [...]}, {page: 2, chunks: [...]}]` |
-| **grounding** | Location of each piece | Like GPS coordinates for text | `{chunk_id: {left: 0.1, top: 0.2, right: 0.5, bottom: 0.3}}` |
-
-### Simple Visual Example
-
-```
-Your PDF Document              →    Parse Output
-┌─────────────┐                    ┌────────────────────┐
-│ Title       │                    │ chunks: [          │
-│             │                    │   "Title text",    │
-│ ┌─────────┐ │       Parse        │   "Table data",    │
-│ │ Table   │ │      ------>       │   "Image caption"  │
-│ └─────────┘ │                    │ ]                  │
-│             │                    │                    │
-│ [Image]     │                    │ markdown:          │
-└─────────────┘                    │ "# Title\n..."     │
-                                   └────────────────────┘
-```
+| Field | Description | Use Case | Example |
+| :--- | :--- | :--- | :--- |
+| **`markdown`** | The complete document text formatted as Markdown. | **Feed this to an LLM** (ChatGPT, Claude) to ask questions about the document. | `"# Invoice\nTotal: $500\n<a id='c1'></a>"` |
+| **`chunks`** | A list of individual elements (paragraphs, tables, charts). | **Iterate through data.** "Find all tables" or "Extract all logos." | `[{id: "c1", type: "table"}, {id: "c2", type: "text"}]` |
+| **`grounding`** | A map linking every chunk ID to exact coordinates (x, y). | **Highlight the source.** Draw a box on the PDF to show users where the answer came from. | `{'c1': {box: {top: 0.1, left: 0.5...}}}` |
+| **`splits`** | Organizes chunks by page number. | **Pagination.** "Show me only the text from Page 3." | `[{page: 1, chunks: ['c1', 'c2']}]` |
+| **`metadata`** | Job stats (pages processed, credits used, duration). | **Billing & Logging.** Track your usage and performance. | `{duration_ms=5979, credit_usage: 3.0, page_count=1}` |
 
 ### Quick Access Example
 
 ```python
-# After parsing a document
-response = client.parse(document="invoice.pdf")
+# 1. Get the object
+response = client.parse("invoice.pdf")  # <--- This returns a ParseResponse object
 
-# Access the clean text
-print(response.markdown)  # "Invoice #123\nDate: 2025-01-12\n..."
-
-# Count content pieces
-print(f"Found {len(response.chunks)} pieces")  # "Found 15 pieces"
-
-# Check pages
-print(f"Document has {len(response.splits)} pages")  # "Document has 3 pages"
-
-# Get processing info
-print(f"Took {response.metadata['duration']} seconds")  # "Took 2.5 seconds"
+# 2. Access the data using dot notation
+print(response.markdown)        # Get the full content
+print(response.chunks[0].markdwon)  # Get the content of the first chunk
+print(response.metadata)        # See how many credits you used
 ```
+
+
 
 ## Chunk Types
 
@@ -109,20 +47,17 @@ print(f"Took {response.metadata['duration']} seconds")  # "Took 2.5 seconds"
 mindmap
   root((Chunks))
     Text
-      chunkText
-      chunkMarginalia
+      Text
+      Marginalia
     Tables
-      chunkTable
+      Table
       tableCell
     Visual
-      chunkFigure
-      chunkLogo
-      chunkScanCode
-    Forms
-      chunkForm
-      chunkAttestation
-    Layout
-      chunkCard
+      Figure
+      Logo
+      ScanCode
+    Attestation
+    Card
 ```
 
 ## Visual Grounding

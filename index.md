@@ -6,7 +6,7 @@ Extract structured data with [99.16% precision](https://landing.ai/blog/superhum
 ## Get Started
 First, you need a LandingAI API key. [Acquire an API key here.](https://docs.landing.ai/ade/agentic-api-key)
 
-Then choose your favourite mode to start.
+Then choose your favourite mode.
 
 <table>
   <tr>
@@ -67,7 +67,7 @@ The parsing output can then be split, extracted or classified.
 
 
 ### [Concepts](concepts.md)
-- [Parse Output Guide](concepts.md#understanding-parse-output---beginners-guide) - Understand the parse response
+- [Parse Output Guide](concepts.md#understanding-parse-output) - Understand the parse response
 - [Chunk Types](concepts.md#chunk-types) - Available content types
 - [Visual Grounding](concepts.md#visual-grounding) - Location tracking
 
