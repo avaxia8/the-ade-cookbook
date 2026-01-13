@@ -57,20 +57,20 @@ The parsing output can then be split, extracted or classified.
 ![The ADE Decision Tree](/images/ade_decision_tree.png)
 ## Learn More
 
-### [Code Examples](examples.md)
-1. **[Parse](examples.md#1-basic-parse-and-extract)** - Parse documents and access output
-2. **[Extract](examples.md#1-basic-parse-and-extract)** - Extract structured data with schemas
-3. **[Split](examples.md#3-page-by-page-processing)** - Process documents page by page
-4. **[Save Visual Grounding](examples.md#1-basic-parse-and-extract)** - Auto-save parse results
-5. **[Document Classification](recipes.md#4-document-classification)** - Auto-categorize documents
-5. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
-
 ### [Essential Concepts](concepts.md)
 - [Parse Output Guide](concepts.md#understanding-parse-output) - Understand the parse response
 - [Extraction Schema](concepts.md#extraction-schemas-explained) - Schemas as shopping lists for AI
 - [Extraction Output Guide](concepts.md#understanding-extraction-output) - Data detective's report
 - [Split Output Guide](concepts.md#understanding-splits) - Document organizer magic
 - [Visual Grounding](concepts.md#visual-grounding) - Location tracking
+
+### Code Examples
+1. **[Parse](examples.md#1-basic-parse-and-extract)** - Parse documents and access output
+2. **[Extract](examples.md#1-basic-parse-and-extract)** - Extract structured data with schemas
+3. **[Split](examples.md#3-page-by-page-processing)** - Process documents page by page
+4. **[Save Visual Grounding](examples.md#1-basic-parse-and-extract)** - Auto-save parse results
+5. **[Document Classification](recipes.md#4-document-classification)** - Auto-categorize documents
+5. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
 
 
 ### [Projects](https://github.com/landing-ai/ade-helper-scripts)
