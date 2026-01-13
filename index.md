@@ -108,7 +108,7 @@ Visit LandingAI [Homepage](https://landing.ai/)
 
 Our [Youtube Channel](https://www.youtube.com/channel/UCYQS3jkfB79Diyr9sQJAj5Q)
 
-Hackathons and [Events](events.landing.ai) 
+Hackathons and [Events](https://events.landing.ai/) 
 
 For Detailed Reference, [read the docs](docs.landing.ai)
 
