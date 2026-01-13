@@ -4,17 +4,18 @@
 - [Understanding Parse Output](#understanding-parse-output)
 - [Chunk Types](#chunk-types)
 - [Visual Grounding](#visual-grounding)
-- [Schema Structure](#schema-structure)
-- [Confidence Scores](#confidence-scores)
+- [Extraction Schemas Explained](#extraction-schemas-explained)
+  - [Pydantic vs JSON Schema](#pydantic-vs-json-schema-the-easy-way)
+  - [JSON Schema for Dummies](#json-schema-for-dummies)
 - [Async Processing Flow](#async-processing-flow)
-- [Model Selection](#model-selection)
-- [Save Options](#save-options)
 - [Error Handling](#error-handling)
 
 
 ## Understanding Parse Output
 
-ParseResponse is the master container returned when you run client.parse(). It transforms a chaotic pile of pixels into a structured system where every item is categorized (**chunks**), transcribed (**markdown**), and tracked to its exact original location (**grounding**).
+ParseResponse is the master container returned when you run client.parse(). 
+
+It transforms a chaotic pile of pixels into a structured system where every item is categorized (**chunks**), transcribed (**markdown**), and tracked to its exact original location (**grounding**).
 
 ### **The Anatomy of a Parse Response**
 
@@ -77,98 +78,124 @@ mindmap
 └─────────────────────────────┘
 ```
 
-## Schema Structure
+## Extraction Schemas Explained
 
-```mermaid
-graph TD
-    subgraph "Pydantic Model"
-        PM[class Invoice:<br/>invoice_number: str<br/>total: float]
-    end
+### Pydantic vs JSON Schema: The Easy Way
+
+Think of it this way:
+- **Pydantic** = The friendly Python translator 🐍
+- **JSON Schema** = The universal language everyone speaks 🌍
+
+| Aspect | Pydantic (Python-Friendly) | JSON Schema (Universal) |
+|--------|---------------------------|------------------------|
+| **What it looks like** | Clean Python classes with type hints | Nested dictionaries with strings |
+| **Writing experience** | `name: str` | `"name": {"type": "string"}` |
+| **IDE Support** | Auto-complete, type checking ✨ | Just a dictionary 📝 |
+| **Validation** | Automatic with helpful errors | Manual validation needed |
+| **Best for** | Python developers who want comfort | Working across languages/tools |
+
+**Quick Example - Same Thing, Two Ways:**
+
+```python
+# Pydantic Way (write this in Python)
+class Invoice(BaseModel):
+    invoice_number: str
+    total: float
     
-    subgraph "JSON Schema"
-        JS[{<br/>'properties': {<br/>'invoice_number': {'type': 'string'},<br/>'total': {'type': 'number'}<br/>}<br/>}]
-    end
-    
-    subgraph "Extracted Data"
-        ED[{<br/>'invoice_number': 'INV-001',<br/>'total': 1250.00<br/>}]
-    end
-    
-    PM -->|.model_json_schema()| JS
-    JS -->|extract()| ED
+# JSON Schema Way (what actually gets sent to ADE)
+{
+    "properties": {
+        "invoice_number": {"type": "string"},
+        "total": {"type": "number"}
+    }
+}
 ```
 
-## Confidence Scores
+**Pro Tip:** Use Pydantic in Python, then call `.model_json_schema()` to convert it. Best of both worlds! 🎉
 
-```mermaid
-graph LR
-    subgraph "Extraction Result"
-        DATA[Data]
-        CONF[Confidence]
-    end
-    
-    subgraph "Confidence Levels"
-        HIGH[🟢 0.9-1.0: High]
-        MED[🟡 0.7-0.9: Medium]
-        LOW[🔴 0.0-0.7: Low]
-    end
-    
-    DATA --> HIGH
-    DATA --> MED
-    DATA --> LOW
+### JSON Schema for Dummies
+
+Think of a **Schema** as a "shopping list" you give to the AI.
+
+If you send the AI a messy document without instructions, it doesn't know what you care about. A schema tells the AI: *"Ignore the noise. Just find these specific things, and give them to me in this specific format."*
+
+#### 1. The Basic Skeleton
+
+Every schema starts the same way. It's a container (an "object") that holds the list of things you want ("properties").
+
+```json
+{
+  "type": "object",          // This says "I want a bundle of data"
+  "properties": {            // "Here is the list of things to find"
+                            // ... Your fields go here ...
+  }
+}
 ```
 
-## Async Processing Flow
+#### 2. Defining Your Fields (The "Shopping Items")
 
-```mermaid
-sequenceDiagram
-    participant Client
-    participant ADE
-    participant JobQueue
-    
-    Client->>ADE: Large file (>10MB)
-    ADE->>JobQueue: Create async job
-    JobQueue-->>Client: job_id: "abc123"
-    
-    loop Check Status
-        Client->>JobQueue: Get status(job_id)
-        JobQueue-->>Client: "processing" | "completed"
-    end
-    
-    Client->>JobQueue: Get result(job_id)
-    JobQueue-->>Client: Extracted data
+For every piece of data you want, you need to tell the AI three things:
+
+1. **Name:** What you want to call it (e.g., `patient_name` instead of just `name`)
+2. **Type:** What kind of data is it? (Text? A number? A list?)
+3. **Description:** A hint to help the AI find it (e.g., "The total cost in USD, excluding tax")
+
+**The Data Types (Flavors of Data):**
+- **`string`**: Plain text (names, descriptions, codes)
+- **`number`**: Money or math stuff (decimals allowed)
+- **`integer`**: Whole numbers only (no decimals)
+- **`boolean`**: True/False (e.g., "Is this checked?")
+- **`array`**: A list of things (like line items on a bill)
+- **`object`**: A group of related things (like an address)
+
+**A Simple Example:**
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "patient_name": {                 // 1. The Name
+      "type": "string",               // 2. The Type (Text)
+      "description": "Patient name"   // 3. The Hint
+    },
+    "copay": {
+      "type": "number",               // Money = Number
+      "description": "Amount paid"
+    }
+  },
+  "required": ["patient_name"]        // "You MUST find this"
+}
 ```
 
-## Model Selection
+#### 3. Cool Tricks (Advanced Features Simplified)
 
-```mermaid
-graph TD
-    A[Document Type] --> B{Clean Text?}
-    B -->|Yes| C[dpt-2-fast]
-    B -->|No| D{Complex Layout?}
-    D -->|Yes| E[dpt-2-latest]
-    D -->|No| F[dpt-2-fast]
-    
-    C --> G[Fast processing]
-    E --> H[High accuracy]
-    F --> I[Balanced]
+**Multiple Choice (`enum`)** - Force the AI to pick from your list:
+```json
+"account_type": {
+  "type": "string",
+  "enum": ["Checking", "Savings"] 
+}
 ```
 
-## Save Options
-
-```mermaid
-graph LR
-    subgraph "Parse with save_to"
-        PARSE[client.parse(<br/>document='doc.pdf',<br/>save_to='./output')]
-    end
-    
-    subgraph "Output Files"
-        JSON[doc_parse_output.json]
-        MD[doc_markdown.txt]
-    end
-    
-    PARSE --> JSON
-    PARSE --> MD
+**Lists (`array`)** - Grab multiple similar items:
+```json
+"charges": {
+  "type": "array",
+  "items": {"type": "string"}  // "Get me a list of strings"
+}
 ```
+
+**Grouping (`object`)** - Keep related data together:
+```json
+"invoice": {
+  "type": "object", 
+  "properties": {
+     "number": {"type": "string"},
+     "total": {"type": "number"}
+  }
+}
+```
+
 
 ## Error Handling
 
