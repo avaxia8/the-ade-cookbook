@@ -64,7 +64,6 @@ It transforms a chaotic pile of pixels into a structured system where every item
   }
 }
 ```
-
 ### Quick Access Example
 
 ```python
@@ -73,15 +72,15 @@ response = client.parse(document="invoice.pdf")
 
 # Access the clean text
 print(response.markdown)  # "Invoice #123\nDate: 2025-01-12\n..."
+# 1. Get the object
+response = client.parse("invoice.pdf")  # <--- This returns a ParseResponse object
 
 # Count content pieces
 print(f"Found {len(response.chunks)} pieces")  # "Found 15 pieces"
-
-# Check pages
-print(f"Document has {len(response.splits)} pages")  # "Document has 3 pages"
-
-# Get processing info
-print(f"Took {response.metadata['duration']} seconds")  # "Took 2.5 seconds"
+# 2. Access the data using dot notation
+print(response.markdown)        # Get the full content
+print(response.chunks[0].markdwon)  # Get the content of the first chunk
+print(response.metadata.credit_usage)        # See how many credits you used
 ```
 
 
