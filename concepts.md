@@ -68,27 +68,20 @@ It transforms a chaotic pile of pixels into a structured system where every item
 ### Quick Access Example
 
 ```python
-# Parse the document
-response = client.parse("invoice.pdf")
+# After parsing a document
+response = client.parse(document="invoice.pdf")
 
-# Access the full markdown with chunk anchors
-print(response.markdown)  # "# Invoice\n<a id='chunk_1'></a>Total: $500..."
+# Access the clean text
+print(response.markdown)  # "Invoice #123\nDate: 2025-01-12\n..."
 
-# Work with individual chunks
-for chunk in response.chunks:
-    print(f"Type: {chunk.type}, ID: {chunk.id}")
-    print(f"Content: {chunk.markdown}")
-    print(f"Location: Page {chunk.grounding.page}, Box: {chunk.grounding.box}")
+# Count content pieces
+print(f"Found {len(response.chunks)} pieces")  # "Found 15 pieces"
 
-# Process by page
-for split in response.splits:
-    if split.class == "page" and "1" in split.identifier:
-        print(f"Page 1 has {len(split.chunks)} chunks")
-        print(f"Page 1 content: {split.markdown}")
+# Check pages
+print(f"Document has {len(response.splits)} pages")  # "Document has 3 pages"
 
-# Check usage
-print(f"Used {response.metadata.credit_usage} credits")
-print(f"Processed {response.metadata.page_count} pages in {response.metadata.duration_ms}ms")
+# Get processing info
+print(f"Took {response.metadata['duration']} seconds")  # "Took 2.5 seconds"
 ```
 
 
