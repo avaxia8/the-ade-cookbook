@@ -1,17 +1,18 @@
 # The ADE Cookbook
 A Developers' guide to LandingAI's Agentic Document Extraction(ADE)
 
-Extract structured data with [AI-powered precision](https://landing.ai/blog/superhuman-on-docvqa-without-images-in-qa-agentic-document-extraction).
+Extract structured data with [99.16% precision](https://landing.ai/blog/superhuman-on-docvqa-without-images-in-qa-agentic-document-extraction).
 
 ## Get Started
-First, you need a LandingAI API key. [Acquire API key here.](https://docs.landing.ai/ade/agentic-api-key)
-Then choose one of the following to start.
+First, you need a LandingAI API key. [Acquire an API key here.](https://docs.landing.ai/ade/agentic-api-key)
+
+Then choose your favourite mode to start.
 
 <table>
   <tr>
     <td width="20%" align="center">
       <h3>🎮 Playground</h3>
-      <p>Try ADE instantly in your browser.</p>
+      <p>Try ADE in your browser.</p>
       <a href="https://va.landing.ai"><strong>Open Playground →</strong></a>
     </td>
     <td width="20%" align="center">
@@ -26,7 +27,7 @@ Then choose one of the following to start.
     </td>
     <td width="20%" align="center">
       <h3>🔌 REST API</h3>
-      <p>Direct API access for any language.</p>
+      <p>Direct API access.</p>
       <br>
       <a href="https://docs.landing.ai/api-reference/tools/ade-parse"><strong>API Docs →</strong></a>
     </td>
@@ -51,7 +52,8 @@ print(f"Found {len(response.chunks)} chunks")
 print(response.markdown[:200])
 ```
 ## Workflow Decision Tree
-After parsing, you can decide on the following workflows based on your needs: 
+The parsing output can then be split, extracted or classified.
+
 ![The ADE Decision Tree](/images/ade_decision_tree.png)
 ## Learn More
 
