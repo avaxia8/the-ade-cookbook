@@ -105,8 +105,10 @@ After parsing, you can decide on the following workflows based on your needs:
 
 ## Resources
 
-Visit landingAI [homepage](https://landing.ai/)
+Visit LandingAI [Homepage](https://landing.ai/)
 
 Our [Youtube Channel](https://www.youtube.com/channel/UCYQS3jkfB79Diyr9sQJAj5Q)
 
-For detailed reference, [read the docs](docs.landing.ai)
+Hackathons and [Events](events.landing.ai) 
+
+For Detailed Reference, [read the docs](docs.landing.ai)
