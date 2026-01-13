@@ -67,7 +67,6 @@ The parsing output can then be split, extracted or classified.
 
 ### [Concepts](concepts.md)
 - [Parse Output Guide](concepts.md#understanding-parse-output) - Understand the parse response
-- [Chunk Types](concepts.md#chunk-types) - Available content types
 - [Visual Grounding](concepts.md#visual-grounding) - Location tracking
 - [Extraction Schema](concepts.md#extraction-schemas-explained) - Schemas as shopping lists for AI
 
