@@ -64,7 +64,7 @@ The parsing output can then be split, extracted or classified.
 - [Split Output Guide](concepts.md#understanding-splits) - Document organizer magic
 - [Visual Grounding](concepts.md#visual-grounding) - Location tracking
 
-### Code Examples
+### Code Examples(link to the docs sample code section)
 1. **[Parse](examples.md#1-basic-parse-and-extract)** - Parse documents and access output
 2. **[Extract](examples.md#1-basic-parse-and-extract)** - Extract structured data with schemas
 3. **[Split](examples.md#3-page-by-page-processing)** - Process documents page by page
