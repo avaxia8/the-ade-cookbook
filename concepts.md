@@ -4,10 +4,10 @@
 - [Understanding Parse Output](#understanding-parse-output)
 - [Visual Grounding](#visual-grounding)
 - [Understanding Splits](#understanding-splits)
-- [Understanding Extraction Output](#understanding-extraction-output)
 - [Extraction Schemas Explained](#extraction-schemas-explained)
   - [Pydantic vs JSON Schema](#pydantic-vs-json-schema-the-easy-way)
   - [JSON Schema for Dummies](#json-schema-for-dummies)
+- [Understanding Extraction Output](#understanding-extraction-output)
 
 ## Understanding Parse Output
 
