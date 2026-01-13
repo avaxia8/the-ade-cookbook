@@ -59,9 +59,8 @@ After parsing, you can decide on the following workflows based on your needs:
 1. **[Parse](examples.md#1-basic-parse-and-extract)** - Parse documents and access output
 2. **[Extract](examples.md#1-basic-parse-and-extract)** - Extract structured data with schemas
 3. **[Split](examples.md#3-page-by-page-processing)** - Process documents page by page
-4. **[Classify]()**
-5. **[Save Visual Grounding](examples.md#1-basic-parse-and-extract)** - Auto-save parse results
-6. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
+4. **[Save Visual Grounding](examples.md#1-basic-parse-and-extract)** - Auto-save parse results
+5. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
 
 
 
