@@ -51,7 +51,7 @@ print(f"Found {len(response.chunks)} chunks")
 print(response.markdown[:200])
 ```
 ## Workflow Decision Tree
-After parsing, you can decide on the following workflows: 
+After parsing, you can decide on the following workflows based on your needs: 
 ![The ADE Decision Tree](/images/ade_decision_tree.png)
 ## Learn More
 
@@ -69,8 +69,7 @@ After parsing, you can decide on the following workflows:
 - [Parse Output Guide](concepts.md#understanding-parse-output---beginners-guide) - Understand the parse response
 - [Chunk Types](concepts.md#chunk-types) - Available content types
 - [Visual Grounding](concepts.md#visual-grounding) - Location tracking
-- [Confidence Scores](concepts.md#confidence-scores) - Extraction reliability
-- [Model Selection](concepts.md#model-selection) - Choose the right model
+
 
 ### [Recipes](recipes.md) 
 - [Invoice Processing](recipes.md#1-invoice-processing) - Complete invoice extraction
@@ -78,6 +77,26 @@ After parsing, you can decide on the following workflows:
 - [Batch Processing](recipes.md#3-batch-document-processing) - Process multiple files
 - [Document Classification](recipes.md#4-document-classification) - Auto-categorize documents
 - [Production Pipeline](recipes.md#8-production-pipeline) - Enterprise-ready setup
+
+### [Project Repos](https://github.com/landing-ai/ade-helper-scripts)
+
+#### Essential Workflows
+- **[Basic Parse & Extract](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/field_extraction/ade_parse_and_extract_with_python)** - Beginner-friendly parsing and extraction
+- **[Document Classification](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/field_extraction/classify_extract_visualize)** - Classify, extract, and visualize documents
+- **[Async Processing for Large Files](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/special_use_case/parse_jobs_api_for_large_files)** - Handle documents >10MB
+
+#### RAG & LLM Integration
+- **[RAG Document Parser](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/retrieval_augmented_generation/document_parser_for_rag_applications)** - Chunk documents for RAG
+- **[Local RAG with ChromaDB](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/retrieval_augmented_generation/ade_local_rag_with_openai_and_chromadb)** - Vector database integration
+
+#### Industry Solutions
+- **[Invoice Processing](https://github.com/landing-ai/ade-helper-scripts/tree/main/use_cases/automated_invoice_parsing)** - Automated invoice extraction
+- **[Utility Bill Parser](https://github.com/landing-ai/ade-helper-scripts/tree/main/use_cases/automated_utility_bill_parsing)** - Financial document processing
+
+#### UI & Deployment
+- **[Streamlit Frontend](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/special_use_case/streamlit_frontend_for_ade)** - Build interactive UIs
+- **[AWS Lambda Deployment](https://github.com/landing-ai/ade-helper-scripts/tree/main/workflows/special_use_case/ade_lambda_s3)** - Serverless processing
+
 
 ## Key Features
 
@@ -90,6 +109,9 @@ After parsing, you can decide on the following workflows:
 ✅ **Parallel Processing** - Async and non-blocking processing for [max throughput](https://docs.landing.ai/ade/ade-parse-async)
 
 ## Resources
+
 Visit landingAI [homepage](https://landing.ai/)
+
+Our [Youtube Channel](https://www.youtube.com/channel/UCYQS3jkfB79Diyr9sQJAj5Q)
 
 For detailed reference, [read the docs](docs.landing.ai)
