@@ -3,8 +3,8 @@
 ## Table of Contents
 - [Understanding Parse Output](#understanding-parse-output)
 - [Visual Grounding](#visual-grounding)
-- [Understanding Splits](#understanding-splits---document-organizer-magic)
-- [Understanding Extraction Output](#understanding-extraction-output---your-data-detectives-report-)
+- [Understanding Splits](#understanding-splits)
+- [Understanding Extraction Output](#understanding-extraction-output)
 - [Extraction Schemas Explained](#extraction-schemas-explained)
   - [Pydantic vs JSON Schema](#pydantic-vs-json-schema-the-easy-way)
   - [JSON Schema for Dummies](#json-schema-for-dummies)
@@ -109,7 +109,7 @@ print(f"Processed {response.metadata.page_count} pages in {response.metadata.dur
 └─────────────────────────────┘
 ```
 
-## Understanding Splits - Document Organizer Magic
+## Understanding Splits
 
 Think of **splits** as your personal filing assistant who can take a messy stack of mixed documents and automatically sort them into organized folders. 
 
@@ -167,7 +167,7 @@ Here's what ADE returns:
 }
 ```
 
-## Understanding Extraction Output - Your Data Detective's Report 🔍
+## Understanding Extraction Output
 
 Think of extraction as hiring a **data detective** who not only finds the information you asked for but also shows you exactly where they found it, like leaving breadcrumbs back to the evidence.
 
