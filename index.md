@@ -67,11 +67,11 @@ The parsing output can then be split, extracted or classified.
 
 ### [Essential Concepts](concepts.md)
 - [Parse Output Guide](concepts.md#understanding-parse-output) - Understand the parse response
-- [Schema 101](#extraction-schemas-explained) - All you need to know about Extraction Schema
+- [Extraction Schema](concepts.md#extraction-schemas-explained) - Schemas as shopping lists for AI
 - [Extraction Output Guide](concepts.md#understanding-extraction-output) - Data detective's report
 - [Split Output Guide](concepts.md#understanding-splits) - Document organizer magic
 - [Visual Grounding](concepts.md#visual-grounding) - Location tracking
-- [Extraction Schema](concepts.md#extraction-schemas-explained) - Schemas as shopping lists for AI
+
 
 ### [Projects](https://github.com/landing-ai/ade-helper-scripts)
 This repo contains many end-to-end examples that make use of ADE.
