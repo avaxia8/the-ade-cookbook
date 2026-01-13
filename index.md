@@ -108,10 +108,7 @@ Visit LandingAI [Homepage](https://landing.ai/)
 
 Our [Youtube Channel](https://www.youtube.com/channel/UCYQS3jkfB79Diyr9sQJAj5Q)
 
-<<<<<<< HEAD
 Hackathons and [Events](events.landing.ai) 
 
 For Detailed Reference, [read the docs](docs.landing.ai)
-=======
-For detailed reference, [read the docs](docs.landing.ai)
->>>>>>> ade30c3280bfbe5fceee1d54dcf1fb5fad655e20
+
