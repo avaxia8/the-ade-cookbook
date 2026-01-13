@@ -195,8 +195,3 @@ For every piece of data you want, you need to tell the AI three things:
   }
 }
 ```
-
-## Next Steps
-
-- **[Examples](examples.md)** - See these concepts in code
-- **[Recipes](recipes.md)** - Production implementations
