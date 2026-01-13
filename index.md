@@ -59,9 +59,8 @@ After parsing, you can decide on the following workflows based on your needs:
 1. **[Parse](examples.md#1-basic-parse-and-extract)** - Parse documents and access output
 2. **[Extract](examples.md#1-basic-parse-and-extract)** - Extract structured data with schemas
 3. **[Split](examples.md#3-page-by-page-processing)** - Process documents page by page
-4. **[Classify]()**
-5. **[Save Visual Grounding](examples.md#1-basic-parse-and-extract)** - Auto-save parse results
-6. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
+4. **[Save Visual Grounding](examples.md#1-basic-parse-and-extract)** - Auto-save parse results
+5. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
 
 
 
@@ -109,6 +108,10 @@ Visit LandingAI [Homepage](https://landing.ai/)
 
 Our [Youtube Channel](https://www.youtube.com/channel/UCYQS3jkfB79Diyr9sQJAj5Q)
 
+<<<<<<< HEAD
 Hackathons and [Events](events.landing.ai) 
 
 For Detailed Reference, [read the docs](docs.landing.ai)
+=======
+For detailed reference, [read the docs](docs.landing.ai)
+>>>>>>> ade30c3280bfbe5fceee1d54dcf1fb5fad655e20
