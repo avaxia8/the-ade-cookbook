@@ -41,7 +41,7 @@ It transforms a chaotic pile of pixels into a structured system where every item
           "right": 456,
           "bottom": 789
         },
-        "page": 1                  // Page number (1-indexed)
+        "page": 0                  // Page number (0-indexed)
       }
     }
   ],
