@@ -201,7 +201,6 @@ Here's what your data detective brings back:
   "metadata": {
     "duration_ms": 1523,              // Took 1.5 seconds
     "credit_usage": 1.0,               // Cost 1 credit
-    "schema_violation_error": null    // No errors! 🎉
   }
 }
 ```
