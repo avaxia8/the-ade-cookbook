@@ -67,11 +67,6 @@ It transforms a chaotic pile of pixels into a structured system where every item
 ### Quick Access Example
 
 ```python
-# After parsing a document
-response = client.parse(document="invoice.pdf")
-
-# Access the clean text
-print(response.markdown)  # "Invoice #123\nDate: 2025-01-12\n..."
 # 1. Get the object
 response = client.parse("invoice.pdf")  # <--- This returns a ParseResponse object
 
