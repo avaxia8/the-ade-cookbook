@@ -55,8 +55,8 @@ The parsing output can then be split, extracted or classified.
 ![The ADE Decision Tree](/images/ade_decision_tree.png)
 ## Learn More
 
-### [Essential Concepts](concepts.md)
-Link to the ADE essential concepts blog post
+### [Essential Concepts](Link to the ADE essential concepts blog post)
+
 
 ### Code Examples(link to the docs sample code section)
 
