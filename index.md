@@ -83,5 +83,3 @@ Our [Youtube Channel](https://www.youtube.com/channel/UCYQS3jkfB79Diyr9sQJAj5Q)
 
 Hackathons and [Events](https://events.landing.ai/) 
 
-For Detailed Reference, [read the docs](docs.landing.ai)
-
