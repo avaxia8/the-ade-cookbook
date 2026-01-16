@@ -55,13 +55,13 @@ The parsing output can then be split, extracted or classified.
 ![The ADE Decision Tree](/images/ade_decision_tree.png)
 ## Learn More
 
-### 💡Essential Concepts(Link to the ADE essential concepts blog post)
+### 💡 Essential Concepts(Link to the ADE essential concepts blog post)
 
 
-### 👨🏻‍💻Code Examples(link to the docs sample code section)
+### 👨🏻‍💻 Code Examples(link to the docs sample code section)
 
 
-### 🚀[Projects](https://github.com/landing-ai/ade-helper-scripts)
+### 🚀 [Projects](https://github.com/landing-ai/ade-helper-scripts)
 This repo contains many end-to-end examples that make use of ADE.
 
 
