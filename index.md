@@ -59,7 +59,6 @@ The parsing output can then be split, extracted or classified.
 Link to the ADE essential concepts blog post
 
 ### Code Examples(link to the docs sample code section)
-Link to sample codes
 
 
 ### [Projects](https://github.com/landing-ai/ade-helper-scripts)
