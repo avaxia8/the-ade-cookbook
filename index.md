@@ -1,6 +1,4 @@
-# The ADE Cookbook
-A Developers' guide to LandingAI's Agentic Document Extraction(ADE)
-
+# The ADE Overview
 Extract structured data with [99.16% precision](https://landing.ai/blog/superhuman-on-docvqa-without-images-in-qa-agentic-document-extraction).
 
 ## Get Started
@@ -58,19 +56,10 @@ The parsing output can then be split, extracted or classified.
 ## Learn More
 
 ### [Essential Concepts](concepts.md)
-- [Parse Output Guide](concepts.md#understanding-parse-output) - Understand the parse response
-- [Extraction Schema](concepts.md#extraction-schemas-explained) - Schemas as shopping lists for AI
-- [Extraction Output Guide](concepts.md#understanding-extraction-output) - Data detective's report
-- [Split Output Guide](concepts.md#understanding-splits) - Document organizer magic
-- [Visual Grounding](concepts.md#visual-grounding) - Location tracking
+Link to the ADE essential concepts blog post
 
 ### Code Examples(link to the docs sample code section)
-1. **[Parse](examples.md#1-basic-parse-and-extract)** - Parse documents and access output
-2. **[Extract](examples.md#1-basic-parse-and-extract)** - Extract structured data with schemas
-3. **[Split](examples.md#3-page-by-page-processing)** - Process documents page by page
-4. **[Save Visual Grounding](examples.md#1-basic-parse-and-extract)** - Auto-save parse results
-5. **[Document Classification](recipes.md#4-document-classification)** - Auto-categorize documents
-5. **[Parallel Processing](examples.md#5-async-processing-for-large-files)** - Async handling for large files
+Link to sample codes
 
 
 ### [Projects](https://github.com/landing-ai/ade-helper-scripts)
