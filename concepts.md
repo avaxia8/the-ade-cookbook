@@ -85,7 +85,8 @@ print(response.metadata.credit_usage)        # See how many credits you used
 ┌─────────────────────────────┐
 │         INVOICE             │
 │  ┌──────────────────┐       │
-│  │ Invoice #: 001   │←──────┼── Chunk: {type: "text", 
+│  │ Invoice #: 001   │←──────┼── Chunk: {"id": "7d58c5cf-e4f5-4a7e-ba34-0cd7bc6a6506",
+                                          type: "text", 
 │  └──────────────────┘       │           grounding: {
 │                             │             left: 0.1,
 │  ┌──────────────────┐       │             top: 0.2,
@@ -136,21 +137,30 @@ Here's what ADE returns:
       "classification": "Bank Statement",     // What type of doc
       "identifier": null,                      // No specific ID needed
       "pages": [0],                           // Found on page 1 (0-indexed)
-      "markdowns": ["Bank Statement\nAccount Number: 1234567890..."]
+      "markdowns": ["<a id='72ba3cca-01e5-407b-9fc4-81f54f9f0c51'></a>\n\n## Bank Statement..."]
     },
     {
       "classification": "Pay Stub",           // Document type
       "identifier": "2025-01-15",            // Specific date found!
       "pages": [1],                          // Page 2
-      "markdowns": ["Pay Stub\nEmployee: John Smith\nPay Date: January 15..."]
+      "markdowns": ["<a id='a3f5d8c9-2b4e-4a1c-8f7e-9d6c5b4a3e2f'></a>\n\n## Pay Stub\n\nPay Date: January 15, 2025..."]
     },
     {
       "classification": "Pay Stub",          // Another pay stub
       "identifier": "2025-01-30",           // Different date
       "pages": [2],                         // Page 3
-      "markdowns": ["Pay Stub\nEmployee: John Smith\nPay Date: January 30..."]
+      "markdowns": ["<a id='5b8865b9-1a81-46df-bcf7-0bdbed9130dc'></a>\n\n## Pay Stub\n\nPay Date: January 30, 2025..."]
     }
   ]
+  "metadata": {
+    "filename": "parsed_mixed_documents.md",
+    "org_id": "org_abc123",
+    "page_count": 3,
+    "duration_ms": 2145,
+    "credit_usage": 3.0,
+    "job_id": "split_xyz789",
+    "version": "split-20251105"
+  }
 }
 ```
 
