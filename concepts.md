@@ -143,13 +143,13 @@ Here's what ADE returns:
       "classification": "Pay Stub",           // Document type
       "identifier": "2025-01-15",            // Specific date found!
       "pages": [1],                          // Page 2
-      "markdowns": ["<a id='a3f5d8c9-2b4e-4a1c-8f7e-9d6c5b4a3e2f'></a>\n\n## Pay Stub\n\nPay Date: January 15, 2025..."]
+      "markdowns": ["<a id='a3f5d8c9-2b4e-4a1c-8f7e-9d6c5b4a3e2f'></a>\n\n## Pay Stub\n\nPay Date: Jan 15, 2025..."]
     },
     {
       "classification": "Pay Stub",          // Another pay stub
       "identifier": "2025-01-30",           // Different date
       "pages": [2],                         // Page 3
-      "markdowns": ["<a id='5b8865b9-1a81-46df-bcf7-0bdbed9130dc'></a>\n\n## Pay Stub\n\nPay Date: January 30, 2025..."]
+      "markdowns": ["<a id='5b8865b9-1a81-46df-bcf7-0bdbed9130dc'></a>\n\n## Pay Stub\n\nPay Date: Jan 30, 2025..."]
     }
   ]
   "metadata": {
