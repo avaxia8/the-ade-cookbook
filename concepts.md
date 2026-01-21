@@ -218,7 +218,7 @@ Here's what your data detective brings back:
 ### Visual: How References Connect Everything
 
 ```
-Your Document                    Extraction Output
+Your Parsed Document               Extraction Output
 ┌──────────────────┐            ┌────────────────────┐
 │ Chunk 72ba3cca:  │  ────►     │ employee_name:     │
 │ "MICHAEL D BRYAN"│            │ "MICHAEL D BRYAN"  │
@@ -242,9 +242,6 @@ Your Document                    Extraction Output
 | **extraction_metadata** | Source references for each field | Verification & debugging |
 | **metadata** | Processing stats | Monitoring & billing |
 | **references** | Chunk IDs where data was found | Trace back to source |
-| **schema_violation_error** | Error messages if schema failed | Error handling |
-
-**Pro Tip:** Always check `schema_violation_error` first! If it's not null, something went wrong with your schema. The detective couldn't complete their mission! 🕵️
 
 ## Extraction Schemas Explained
 
